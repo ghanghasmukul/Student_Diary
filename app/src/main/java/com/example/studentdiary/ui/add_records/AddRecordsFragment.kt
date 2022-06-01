@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,8 +13,8 @@ import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
 
 class AddRecordsFragment : Fragment() {
-    private lateinit var studentList:ArrayList<StudentDetails>
-    private  var studentViewModel : StudentViewModel = StudentViewModel()
+    private lateinit var studentList: ArrayList<StudentDetails>
+    private var studentViewModel: StudentViewModel = StudentViewModel()
 
     private var _binding: FragmentAddRecordsBinding? = null
 
@@ -43,42 +44,55 @@ class AddRecordsFragment : Fragment() {
             val name = name?.text.toString()
             val roll_no = roll_no?.text.toString()
             val phone_no = phone_no?.text.toString()
-            if (binding.enterNameET.isEmpty() || binding.phoneNoET.isEmpty() || binding.rollNoET.isEmpty()) {
-                if (binding.enterNameET.isEmpty()) {
+            if (name.isEmpty() || phone_no.isEmpty() || roll_no.isEmpty()) {
+                if (name.isEmpty()) {
                     binding.enterNameET.error = "Name can't be empty"
+                    Toast.makeText(requireContext(), "empty name", Toast.LENGTH_SHORT).show()
                     binding.enterNameET.isErrorEnabled = true
                 }
-                if (binding.rollNoET.isEmpty()) {
+                else{
+                    binding.enterNameET.error = null
+                    binding.enterNameET.isErrorEnabled = false
+
+                }
+                if (roll_no.isEmpty()) {
+                    Toast.makeText(requireContext(), "empty roll", Toast.LENGTH_SHORT).show()
+
                     binding.rollNoET.error = "Roll no. can't be empty"
                     binding.enterNameET.isErrorEnabled = true
                 }
-                if (binding.phoneNoET.isEmpty()) {
+                else{
+                    binding.rollNoET.error = null
+                    binding.rollNoET.isErrorEnabled = false
+                }
+                if (phone_no.isEmpty()) {
+                    Toast.makeText(requireContext(), "empty phone", Toast.LENGTH_SHORT).show()
                     binding.phoneNoET.error = "Phone no. can't be empty"
                     binding.enterNameET.isErrorEnabled = true
                 }
-            }
-                else
-                {
-                    studentViewModel.insert(
-                        requireContext(),
-                        StudentDetails(name, roll_no, phone_no)
-                    )
+                else{
+                    binding.phoneNoET.error = null
+                    binding.phoneNoET.isErrorEnabled = false
                 }
+            } else {
 
+                studentViewModel.insert(
+                    requireContext(),
+                    StudentDetails(name, roll_no, phone_no)
+                )
             }
 
-
-
+        }
 
 
         return root
     }
 
-    fun setData(userList:ArrayList<StudentDetails>)
-    {
-        this.studentList=userList
+    fun setData(userList: ArrayList<StudentDetails>) {
+        this.studentList = userList
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
