@@ -27,7 +27,7 @@ class StudentRepository {
             studentDatabase1 = intialiseDB(context)
             return studentDatabase1!!.studentDao().getAllUserData()
         }
-        fun delete(context: Context, studentDatabase: StudentDetails){
+        fun delete(context: Context){
           studentDatabase1 = intialiseDB(context)
 
 
