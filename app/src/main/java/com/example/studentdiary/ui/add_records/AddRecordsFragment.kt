@@ -63,6 +63,7 @@ class AddRecordsFragment : Fragment() {
 
 
     private fun onSubmitClick() {
+        //test
         binding.submitBtn.setOnClickListener {
 
 
