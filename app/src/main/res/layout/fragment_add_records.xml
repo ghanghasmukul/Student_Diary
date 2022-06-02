@@ -49,6 +49,24 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAddressLine"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="Location"
+        android:textSize="@dimen/_16ssp"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLocality"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="Locality"
+        android:textSize="@dimen/_16ssp"/>
+
+
+
+
     <com.google.android.material.button.MaterialButton
         android:layout_margin="@dimen/_8sdp"
         android:id="@+id/submitBtn"
