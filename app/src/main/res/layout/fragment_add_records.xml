@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name -"
-        android:id="@+id/enterNameET">
+        android:id="@+id/etEnterName">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/rollNoET"
+        android:id="@+id/etRollNo"
         android:layout_margin="@dimen/_8sdp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
@@ -35,11 +35,12 @@
             android:layout_width="match_parent"
             android:inputType="number"
             android:layout_height="wrap_content"
+            android:maxLength="4"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/phoneNoET"
+        android:id="@+id/etPhoneNo"
         android:layout_margin="@dimen/_8sdp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
@@ -54,31 +55,13 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAddressLine"
-        android:layout_margin="@dimen/_8sdp"
-        android:hint="Location"
-        android:textSize="@dimen/_16ssp"/>
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvLocality"
-        android:layout_margin="@dimen/_8sdp"
-        android:hint="Locality"
-        android:textSize="@dimen/_16ssp"/>
-
-
-
-
     <com.google.android.material.button.MaterialButton
-        android:layout_margin="@dimen/_8sdp"
-        android:id="@+id/submitBtn"
+        android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_8sdp"
         android:text="Submit"
-        android:textSize="@dimen/_18ssp"
-        android:layout_gravity="center"/>
+        android:textSize="@dimen/_18ssp" />
 
 </LinearLayout>

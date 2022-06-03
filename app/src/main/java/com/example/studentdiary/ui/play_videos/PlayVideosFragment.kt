@@ -1,6 +1,5 @@
 package com.example.studentdiary.ui.play_videos
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import com.example.studentdiary.databinding.FragmentPlayVideosBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.StyledPlayerView
-import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 class PlayVideosFragment : Fragment() {
     private var player: ExoPlayer? = null
