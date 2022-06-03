@@ -15,7 +15,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name -"
+        android:hint="@string/name"
         android:id="@+id/etEnterName">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Roll No. - ">
+        android:hint="@string/roll_no">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:inputType="number"
@@ -45,7 +45,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone No. - "
+        android:hint="@string/phone_no"
         app:prefixText="+91">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/_8sdp"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textSize="@dimen/_18ssp" />
 
 </LinearLayout>

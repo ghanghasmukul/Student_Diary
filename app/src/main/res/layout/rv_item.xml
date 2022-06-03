@@ -2,7 +2,6 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
@@ -20,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:hint="Name"
+            android:hint="@string/name"
             android:textColor="#05437c"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
@@ -36,6 +35,7 @@
             android:layout_marginTop="8dp"
             android:textColor="#38aed2"
             android:textSize="@dimen/_16ssp"
+            android:hint="@string/phone_no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.212"
             app:layout_constraintStart_toEndOf="@+id/textView"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="Roll No :"
+            android:text="@string/roll_no"
             android:textColor="#38aed2"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
@@ -65,14 +65,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvPhone"
             app:layout_constraintHorizontal_bias="0.414"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:hint="Phone NO"
+            android:hint="@string/phone_no"
             android:textColor="#38aed2"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
