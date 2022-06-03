@@ -8,13 +8,13 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_animation"
-        app:lottie_rawRes="@raw/notepad"
+        app:lottie_rawRes="@raw/jumping"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_repeatCount="0"
+        app:lottie_repeatCount="2"
         app:lottie_autoPlay="true"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
