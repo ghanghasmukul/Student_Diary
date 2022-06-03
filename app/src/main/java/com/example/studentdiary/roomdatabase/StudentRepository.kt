@@ -15,11 +15,11 @@ class StudentRepository {
             return StudentDatabase.getInstance(context)
         }
 
-        fun insert(context: Context, studentDatabase: StudentDetails) {
+        fun insert(context: Context, studentDetails: StudentDetails) {
             studentDatabase1  = intialiseDB(context)
 
             CoroutineScope(IO).launch {
-               studentDatabase1?.studentDao()?.insert(studentDatabase)
+               studentDatabase1?.studentDao()?.insert(studentDetails)
             }
         }
 
@@ -27,10 +27,11 @@ class StudentRepository {
             studentDatabase1 = intialiseDB(context)
             return studentDatabase1!!.studentDao().getAllUserData()
         }
-        fun delete(context: Context){
-          studentDatabase1 = intialiseDB(context)
-
-
+        fun delete(context: Context,studentDetails : StudentDetails){
+            studentDatabase1 = intialiseDB(context)
+          CoroutineScope(IO).launch {
+              studentDatabase1?.studentDao()?.delete(studentDetails)
+          }
         }
 
     }

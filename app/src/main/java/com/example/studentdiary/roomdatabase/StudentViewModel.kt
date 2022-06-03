@@ -16,7 +16,7 @@ class StudentViewModel :ViewModel() {
         return StudentRepository.getAllUserData(context)
     }
     fun delete(context: Context,studentDetails: StudentDetails){
-      StudentRepository.delete(context)
+      StudentRepository.delete(context,studentDetails)
 
     }
 }

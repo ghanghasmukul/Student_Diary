@@ -11,15 +11,15 @@ import com.example.studentdiary.databinding.ActivityBottomNavigationBinding
 
 class BottomNavigation : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBottomNavigationBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        setContentView(R.layout.activity_bottom_navigation)
+
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment_activity_bottom_navigation)
         // Passing each menu ID as a set of Ids because each
