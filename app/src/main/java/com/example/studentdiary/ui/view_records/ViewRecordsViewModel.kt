@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModel
 
 class ViewRecordsViewModel : ViewModel() {
 
-    private val getData  = MutableLiveData<String>().apply {
-
-    }
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is View Records Fragment"

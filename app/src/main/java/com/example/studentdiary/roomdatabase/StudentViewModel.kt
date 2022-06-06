@@ -19,6 +19,9 @@ class StudentViewModel :ViewModel() {
       StudentRepository.delete(context,studentDetails)
 
     }
+    fun update(context: Context,studentDetails: StudentDetails){
+        StudentRepository.update(context,studentDetails)
+    }
 }
 
 

@@ -33,6 +33,12 @@ class StudentRepository {
               studentDatabase1?.studentDao()?.delete(studentDetails)
           }
         }
+        fun update(context: Context,studentDetails: StudentDetails){
+            studentDatabase1 = intialiseDB(context)
+            CoroutineScope(IO).launch{
+            studentDatabase1!!.studentDao().update(studentDetails)
+        }
+        }
 
     }
 }

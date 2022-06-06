@@ -7,10 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.studentdiary.databinding.ActivityBottomNavigationBinding
 
 class BottomNavigation : AppCompatActivity() {
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +24,18 @@ class BottomNavigation : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_view_records, R.id.navigation_add_records, R.id.navigation_play_videos
+                R.id.navigation_view_records,
+                R.id.navigation_add_records,
+                R.id.navigation_play_videos
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
     }
+
+
 }
+
+

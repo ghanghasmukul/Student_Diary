@@ -5,22 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
-    android:backgroundTint="@color/white"
-    android:alpha="0.8"
-    android:elevation="@dimen/_24ssp"
-    app:cardCornerRadius="@dimen/_24ssp">
+    android:backgroundTint="#E3EEF3"
+    android:elevation="@dimen/_20ssp"
+    app:cardCornerRadius="@dimen/_20ssp">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_margin="@dimen/_4sdp"
             android:hint="@string/name"
-            android:textColor="#05437c"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textViewOptions"
@@ -31,50 +34,21 @@
             android:id="@+id/tvRoll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:layout_marginTop="8dp"
-            android:textColor="#38aed2"
+            android:layout_margin="@dimen/_4sdp"
+            android:hint="@string/roll_no"
             android:textSize="@dimen/_16ssp"
-            android:hint="@string/phone_no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.212"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="@string/roll_no"
-            android:textColor="#38aed2"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.606" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="26dp"
-            android:layout_height="27dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_outline_phone_android_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvPhone"
-            app:layout_constraintHorizontal_bias="0.414"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_margin="@dimen/_4sdp"
             android:hint="@string/phone_no"
-            android:textColor="#38aed2"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,15 +57,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tvRoll"
             app:layout_constraintVertical_bias="0.2" />
 
-        <ImageView
-            android:id="@+id/textViewOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:src="@drawable/ic_baseline_more_vert_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </TableLayout>
+    <ImageView
+        android:id="@+id/textViewOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:src="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </com.google.android.material.card.MaterialCardView>

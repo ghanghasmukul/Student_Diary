@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.studentdiary.R
 import com.example.studentdiary.databinding.FragmentAddRecordsBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
-
 
 
 class AddRecordsFragment : Fragment() {
@@ -18,21 +18,27 @@ class AddRecordsFragment : Fragment() {
     private var studentViewModel: StudentViewModel = StudentViewModel()
     private var _binding: FragmentAddRecordsBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val addRecordsViewModel =
-            ViewModelProvider(this)[AddRecordsViewModel::class.java]
-
         _binding = FragmentAddRecordsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        onSubmitClick()
+       onSubmitClick()
+    //    onUpdateClick()
 
         return root
+    }
+
+    private fun onUpdateClick() {
+     val name = requireArguments().getString("name")
+        val phoneNo = requireArguments().getString("phoneNo")
+        val rollNo = requireArguments().getString("rollNo")
+
+
+
     }
 
 
@@ -74,6 +80,7 @@ class AddRecordsFragment : Fragment() {
                     requireContext(),
                     StudentDetails(name, rollNo, phoneNo)
                 )
+                openViewRecordsFragment()
                 Toast.makeText(requireContext(),"Data Saved Successfully",Toast.LENGTH_LONG).show()
                 binding.etEnterName.editText?.text = null
                 binding.etPhoneNo.editText?.text = null
@@ -81,6 +88,11 @@ class AddRecordsFragment : Fragment() {
             }
         }
     }
+
+    private fun openViewRecordsFragment() {
+        findNavController().navigate(R.id.navigation_view_records)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
