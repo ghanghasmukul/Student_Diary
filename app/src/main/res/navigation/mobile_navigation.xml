@@ -9,17 +9,38 @@
         android:id="@+id/navigation_view_records"
         android:name="com.example.studentdiary.ui.view_records.ViewRecordsFragments"
         android:label="@string/view_record"
-        tools:layout="@layout/fragment_view_records" />
+        tools:layout="@layout/fragment_view_records" >
+
+        <action
+            android:id="@+id/action_navigation_view_records_to_navigation_add_records"
+            app:destination="@id/navigation_add_records" />
+        <action
+            android:id="@+id/action_navigation_view_records_to_navigation_update_records"
+            app:destination="@id/navigation_update_records" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_add_records"
         android:name="com.example.studentdiary.ui.add_records.AddRecordsFragment"
         android:label="@string/add_record"
-        tools:layout="@layout/fragment_add_records" />
+        tools:layout="@layout/fragment_add_records" >
+        <action
+            android:id="@+id/action_navigation_add_records_to_navigation_view_records"
+            app:destination="@id/navigation_view_records" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_play_videos"
         android:name="com.example.studentdiary.ui.play_videos.PlayVideosFragment"
         android:label="@string/play_videos"
         tools:layout="@layout/fragment_play_videos" />
+    <fragment
+        android:id="@+id/navigation_update_records"
+        android:name="com.example.studentdiary.ui.update_records.UpdateRecordsFragment"
+        android:label="Update Records"
+        tools:layout="@layout/fragment_update_records">
+        <action
+            android:id="@+id/action_navigation_update_records_to_navigation_view_records2"
+            app:destination="@id/navigation_view_records" />
+    </fragment>
 </navigation>

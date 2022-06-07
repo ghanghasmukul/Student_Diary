@@ -1,28 +1,21 @@
 package com.example.studentdiary.adapters
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
-import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdiary.R
 import com.example.studentdiary.databinding.RvItemBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
-import com.example.studentdiary.ui.add_records.AddRecordsFragment
+import kotlinx.android.synthetic.main.update_records_dialog.*
 
 
 class ViewRecordsAdapter(var context: Context, private var studentList: ArrayList<StudentDetails>) :
@@ -46,6 +39,8 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                 tvName.text = studentList[position].name?.uppercase()
                 tvPhone.text = studentList[position].phone_no
                 tvRoll.text = studentList[position].roll_no
+                addressLine.text = studentList[position].addressLine
+                locality.text = studentList[position].locality
 
                 textViewOptions.setOnClickListener {
                     val popup = PopupMenu(context, textViewOptions)
@@ -69,21 +64,43 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                     return true
                                 }
                                 R.id.menuItemEdit -> {
+                                    val pos : StudentDetails = studentList[holder.absoluteAdapterPosition]
+                                    val name : String = pos.name.toString()
+                                    val phone : String = pos.phone_no.toString()
+                                    val roll : String = pos.roll_no.toString()
+                                    val loc : String = pos.locality.toString()
+                                    val addLine : String = pos.addressLine.toString()
+                                    val dialog = Dialog(context)
+                                    dialog.setContentView(R.layout.update_records_dialog)
+                                    val width : Int = WindowManager.LayoutParams.MATCH_PARENT
+                                    val height : Int = WindowManager.LayoutParams.WRAP_CONTENT
+                                    dialog.window?.setLayout(width,height)
+                                    dialog.show()
+                                    val nameET : EditText = dialog.etUpdateName
+                                    val phoneET :EditText = dialog.etUpdatePhoneNo
+                                    val rollET : EditText = dialog.etUpdateRollNo
+                                    val addressLine : EditText = dialog.etUpdateAddressLine
+                                    val locality : EditText = dialog.etUpdateLocality
+                                    val updateBtn : Button = dialog.updateBtn
 
-                                    val fragment: Fragment = AddRecordsFragment()
-                                    val bundle = Bundle()
-                                    bundle.putString("name", studentList[position].name)
-                                    bundle.putString("rollNo",studentList[position].roll_no)
-                                    bundle.putString("phoneNo",studentList[position].phone_no)
-                                    fragment.arguments = bundle
+                                    nameET.setText(name)
+                                    phoneET.setText(phone)
+                                    rollET.setText(roll)
+                                    addressLine.setText(addLine)
+                                    locality.setText(loc)
+                                    updateBtn.setOnClickListener{
+                                        dialog.dismiss()
+                                        val updatedName = nameET.text.toString().trim()
+                                        val updatedRoll = rollET.text.toString().trim()
+                                        val updatedPhone = phoneET.text.toString().trim()
+                                        val updatedLoc = locality.text.toString().trim()
+                                        val updatedAddressLine = addressLine.text.toString().trim()
+                                        val studentDetails = StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc)
+                                        studentViewModel.update(context,studentDetails)
+                                        studentViewModel.getAllUserData(context)
+//                                        notifyDataSetChanged()
 
-
-
-                               //   showdialog()
-
-                                    val view : View = holder.itemView
-                                      view.findNavController().navigate(R.id.navigation_add_records)
-
+                                    }
                                     return true
                                 }
                             }
@@ -108,32 +125,5 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
     override fun getItemCount(): Int {
         return studentList.size
     }
-    fun showdialog() {
-        val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
-        builder.setTitle("Update Records")
-
-        val etName = EditText(context)
-        val etRollNo = EditText(context)
-        val etPhoneNo = EditText(context)
-        etName.hint = "Enter Correct Name"
-        etRollNo.hint = "Enter correct Roll No."
-        etPhoneNo.hint = "Enter correct Phone No"
-        etName.inputType = InputType.TYPE_CLASS_TEXT
-        etRollNo.inputType = InputType.TYPE_CLASS_NUMBER
-        etPhoneNo.inputType = InputType.TYPE_CLASS_NUMBER
-        builder.apply {
-            setView(etName)
-            setView(etRollNo)
-            setView(etPhoneNo)
-        }
-        builder.setPositiveButton("Update", DialogInterface.OnClickListener { dialog, which ->
-
-        })
-        builder.setNegativeButton(
-            "Cancel",
-            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-        builder.show()
-    }
-
 
 }

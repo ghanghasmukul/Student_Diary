@@ -13,4 +13,10 @@
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="enter_roll_no_to_update">Enter Roll No. to update</string>
+    <string name="enter_name_to_update">Enter name to update</string>
+    <string name="enter_phone_no_to_update">Enter PhoneNo to update</string>
+    <string name="update_records">Update Records</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -12,8 +12,8 @@ interface Dao  {
     @Query("SELECT * FROM StudentDetails ORDER BY id ASC")
     fun getAllUserData(): LiveData<List<StudentDetails>>
 
-    @Update
-    suspend fun update(studentDetails: StudentDetails)
+   @Update(onConflict = OnConflictStrategy.REPLACE)
+   suspend fun update(studentDetails: StudentDetails)
 
     @Delete
     suspend fun delete(studentDetails: StudentDetails)

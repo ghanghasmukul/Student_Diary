@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_16sdp"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:id="@+id/etUpdateName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="@string/enter_name_to_update"
+        android:textSize="@dimen/_16sdp"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/etUpdateRollNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:inputType="number"
+        android:maxLength="4"
+        android:hint="@string/enter_roll_no_to_update"
+        android:textSize="@dimen/_16sdp" />
+
+    <EditText
+        android:id="@+id/etUpdatePhoneNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="@string/enter_phone_no_to_update"
+        android:textSize="@dimen/_16sdp" />
+
+    <EditText
+        android:id="@+id/etUpdateAddressLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="@string/enter_phone_no_to_update"
+        android:textSize="@dimen/_16sdp" />
+
+    <EditText
+        android:id="@+id/etUpdateLocality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="@string/enter_phone_no_to_update"
+        android:textSize="@dimen/_16sdp" />
+
+    <Button
+        android:id="@+id/updateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="@string/update_records" />
+
+</LinearLayout>

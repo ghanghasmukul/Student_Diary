@@ -10,11 +10,15 @@
     app:cardCornerRadius="@dimen/_20ssp">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/_8sdp"
+    >
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,10 +29,7 @@
             android:layout_margin="@dimen/_4sdp"
             android:hint="@string/name"
             android:textSize="@dimen/_20ssp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/textViewOptions"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvRoll"
@@ -36,11 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_4sdp"
             android:hint="@string/roll_no"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.212"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+            android:textSize="@dimen/_16ssp" />
 
 
         <TextView
@@ -50,13 +47,27 @@
             android:layout_margin="@dimen/_4sdp"
             android:hint="@string/phone_no"
             android:textSize="@dimen/_16ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.552"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRoll"
-            app:layout_constraintVertical_bias="0.2" />
 
+            />
+
+        <TextView
+            android:id="@+id/addressLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:hint="Address Line"
+            android:textSize="@dimen/_16ssp"
+
+            />
+
+        <TextView
+            android:id="@+id/locality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:hint="Locality"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginBottom="@dimen/_16sdp"/>
     </TableLayout>
     <ImageView
         android:id="@+id/textViewOptions"
