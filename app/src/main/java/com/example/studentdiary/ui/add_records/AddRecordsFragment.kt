@@ -74,7 +74,15 @@ class AddRecordsFragment : Fragment() {
             val task = fusedLocationProviderClient.lastLocation
             task.addOnSuccessListener {
                 currentLocation = it
-                updateLocation()
+                currentLocation?.let {
+                        val latLng = LatLng(it.latitude, it.longitude)
+                        val geocoder = Geocoder(context, Locale.getDefault())
+                        val list: List<Address> =
+                            geocoder.getFromLocation(currentLocation!!.latitude, currentLocation!!.longitude, 1) as List<Address>
+                        binding.tvLocalityLocation.text = list[0].locality
+                        binding.tvAddressLineLocation.text = list[0].getAddressLine(0)
+                        Log.d("details", "longitude ${latLng.longitude}, Latitude ${latLng.latitude}")
+                }
 
             }
 
@@ -89,7 +97,6 @@ class AddRecordsFragment : Fragment() {
                     super.onLocationResult(p0)
                     currentLocation = p0.lastLocation
                     fusedLocationProviderClient.removeLocationUpdates(this)
-                    updateLocation()
                 }
             }
             fusedLocationProviderClient.requestLocationUpdates(
@@ -194,18 +201,6 @@ class AddRecordsFragment : Fragment() {
                 .show()
         } else {
             getLocationUpdates()
-        }
-    }
-
-    private fun updateLocation() {
-        currentLocation?.let {
-            val latLng = LatLng(it.latitude, it.longitude)
-            val geocoder = Geocoder(context, Locale.getDefault())
-            val list: List<Address> =
-                geocoder.getFromLocation(currentLocation!!.latitude, currentLocation!!.longitude, 1)
-            binding.tvLocalityLocation.text = list[0].locality
-            binding.tvAddressLineLocation.text = list[0].getAddressLine(0)
-            Log.d("details", "longitude ${latLng.longitude}, Latitude ${latLng.latitude}")
         }
     }
 

@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.update_records_dialog.*
 
 class ViewRecordsAdapter(var context: Context, private var studentList: ArrayList<StudentDetails>) :
     RecyclerView.Adapter<ViewRecordsAdapter.ViewRecordViewHolder>() {
-
-    var studentViewModel: StudentViewModel = StudentViewModel()
+    var studentViewModel = StudentViewModel()
 
     inner class ViewRecordViewHolder(val binding: RvItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -39,7 +38,7 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                 tvName.text = studentList[position].name?.uppercase()
                 tvPhone.text = studentList[position].phone_no
                 tvRoll.text = studentList[position].roll_no
-                addressLine.text = studentList[position].addressLine
+                addressLine.text = studentList[position].address_line
                 locality.text = studentList[position].locality
 
                 textViewOptions.setOnClickListener {
@@ -57,7 +56,6 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                     )
                                         .show()
                                     studentViewModel.delete(
-                                        context,
                                         studentList[holder.absoluteAdapterPosition]
                                     )
                                     notifyItemRemoved(holder.absoluteAdapterPosition)
@@ -69,7 +67,7 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                     val phone : String = pos.phone_no.toString()
                                     val roll : String = pos.roll_no.toString()
                                     val loc : String = pos.locality.toString()
-                                    val addLine : String = pos.addressLine.toString()
+                                    val addLine : String = pos.address_line.toString()
                                     val dialog = Dialog(context)
                                     dialog.setContentView(R.layout.update_records_dialog)
                                     val width : Int = WindowManager.LayoutParams.MATCH_PARENT
@@ -95,10 +93,21 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                         val updatedPhone = phoneET.text.toString().trim()
                                         val updatedLoc = locality.text.toString().trim()
                                         val updatedAddressLine = addressLine.text.toString().trim()
-                                        val studentDetails = StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc)
-                                        studentViewModel.update(context,studentDetails)
+                                        val studentDetails1 = StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc)
+                                     //   studentViewModel.updateStudent(studentDetails1)
+//                                        pos.id?.let { it1 ->
+//                                            studentViewModel.update(
+//                                                it1,updatedName)
+//
+//                                        }
+
+                                        pos.id?.let { it1 ->
+                                            studentViewModel.updateStudentDetails(
+                                                it1,studentDetails1)
+                                        }
+                                     //   studentViewModel.updateStudentDetails( StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc))
+                                      //  studentViewModel.updateStudent1( StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc))
                                         studentViewModel.getAllUserData(context)
-//                                        notifyDataSetChanged()
 
                                     }
                                     return true

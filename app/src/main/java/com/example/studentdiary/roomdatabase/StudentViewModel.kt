@@ -11,7 +11,7 @@ class StudentViewModel : ViewModel() {
 
     fun insert(context: Context, studentDetails: StudentDetails)
     {
-        StudentRepository.insert(context,studentDetails)
+        StudentRepository.insert(studentDetails)
         getAllUserData(context)
     }
 
@@ -20,15 +20,14 @@ class StudentViewModel : ViewModel() {
         return StudentRepository.getAllUserData(context)
 
     }
-    fun delete(context: Context,studentDetails: StudentDetails){
-      StudentRepository.delete(context,studentDetails)
-        getAllUserData(context)
+    fun delete(studentDetails: StudentDetails){
+      StudentRepository.delete(studentDetails)
 
     }
-    fun update(context: Context,studentDetails: StudentDetails){
-        StudentRepository.update(context,studentDetails)
-        getAllUserData(context)
-    }
+
+   fun updateStudentDetails(id : Int, studentDetails: StudentDetails){
+       StudentRepository.updateStudent(id,studentDetails)
+   }
 }
 
 
