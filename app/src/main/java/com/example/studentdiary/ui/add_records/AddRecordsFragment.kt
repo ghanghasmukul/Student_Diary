@@ -1,22 +1,17 @@
 package com.example.studentdiary.ui.add_records
 
 import android.Manifest
-import android.content.Context.LOCATION_SERVICE
-import android.content.Intent
+import android.app.ProgressDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,9 +20,8 @@ import com.example.studentdiary.databinding.FragmentAddRecordsBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.delay
 import java.util.*
 
 
@@ -35,9 +29,6 @@ class AddRecordsFragment : Fragment() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var currentLocation: Location? = null
     private var studentViewModel: StudentViewModel = StudentViewModel()
-    private var gpsEnabled: Boolean = false
-    private var networkEnabled: Boolean = false
-    private lateinit var alertDialog: AlertDialog
     private val permissionCode = 101
     private var _binding: FragmentAddRecordsBinding? = null
     private val binding get() = _binding!!
@@ -48,14 +39,28 @@ class AddRecordsFragment : Fragment() {
     ): View {
         _binding = FragmentAddRecordsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(root.context)
-        getLocationUpdates()
+
         onSubmitClick()
+        getLocationUpdates()
         return root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fusedLocationProviderClient = context.let {
+            LocationServices.getFusedLocationProviderClient(
+                it
+            )
+        }
+        getLocationUpdates()
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getLocationUpdates()
 
-    private fun getLocationUpdates() {
+    }
+
+    private  fun getLocationUpdates() {
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -69,23 +74,20 @@ class AddRecordsFragment : Fragment() {
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), permissionCode
             )
-            return
-        } else {
+        }
             val task = fusedLocationProviderClient.lastLocation
             task.addOnSuccessListener {
                 currentLocation = it
-                currentLocation?.let {
-                        val latLng = LatLng(it.latitude, it.longitude)
-                        val geocoder = Geocoder(context, Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(currentLocation!!.latitude, currentLocation!!.longitude, 1) as List<Address>
-                        binding.tvLocalityLocation.text = list[0].locality
-                        binding.tvAddressLineLocation.text = list[0].getAddressLine(0)
-                        Log.d("details", "longitude ${latLng.longitude}, Latitude ${latLng.latitude}")
-                }
+                val progress = ProgressDialog(requireContext())
+                progress.setTitle("Loading")
+                progress.setMessage("Wait while loading...")
+                progress.setCancelable(false) // disable dismiss by tapping outside of the dialog
+
+                progress.show()
+                fetchLoc()
+                progress.dismiss()
 
             }
-
 
             val mLocationRequest = LocationRequest.create()
             mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -104,6 +106,18 @@ class AddRecordsFragment : Fragment() {
                 callback,
                 Looper.getMainLooper()
             )
+        }
+
+
+    private fun fetchLoc() {
+        currentLocation?.let {
+            val latLng = LatLng(it.latitude, it.longitude)
+            val geocoder = Geocoder(context, Locale.getDefault())
+            val list: List<Address> =
+                geocoder.getFromLocation(currentLocation!!.latitude, currentLocation!!.longitude, 1) as List<Address>
+            binding.tvLocalityLocation.text = list[0].locality
+            binding.tvAddressLineLocation.text = list[0].getAddressLine(0)
+            Log.d("details", "longitude ${latLng.longitude}, Latitude ${latLng.latitude}")
         }
     }
 
@@ -170,39 +184,6 @@ class AddRecordsFragment : Fragment() {
         _binding = null
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            permissionCode -> if (grantResults.isNotEmpty() && grantResults[0] ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                checkGpsState()
-            }
-
-        }
-    }
-
-    private fun checkGpsState() {
-        val lm = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
-        gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        if (!gpsEnabled && !networkEnabled) {
-            alertDialog = AlertDialog.Builder(requireContext())
-                .setMessage("Location Not Allowed")
-                .setPositiveButton("Enable Location") { dialog, which ->
-                    dialog.dismiss()
-                    this.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
-        } else {
-            getLocationUpdates()
-        }
-    }
 
 }
 

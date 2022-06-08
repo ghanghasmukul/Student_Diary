@@ -1,15 +1,19 @@
 package com.example.studentdiary.ui.view_records
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studentdiary.R
 import com.example.studentdiary.adapters.ViewRecordsAdapter
 import com.example.studentdiary.databinding.FragmentViewRecordsBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
+
+
 class ViewRecordsFragments : Fragment() {
 
     private var _binding: FragmentViewRecordsBinding? = null
@@ -25,6 +29,7 @@ class ViewRecordsFragments : Fragment() {
     ): View {
         _binding = FragmentViewRecordsBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        setHasOptionsMenu(true)
 
         binding.rvViewRecords.layoutManager = LinearLayoutManager(context)
         adapter1 = ViewRecordsAdapter(requireContext(), ArrayList<StudentDetails>())
@@ -32,6 +37,14 @@ class ViewRecordsFragments : Fragment() {
         getData()
         return root
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.searchbar, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+
+
+    }
+
 
 
 
