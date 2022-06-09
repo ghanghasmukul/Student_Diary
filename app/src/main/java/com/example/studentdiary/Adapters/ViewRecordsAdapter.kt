@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdiary.R
 import com.example.studentdiary.databinding.RvItemBinding
@@ -39,7 +41,6 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                 tvPhone.text = studentList[position].phone_no
                 tvRoll.text = studentList[position].roll_no
                 addressLine.text = studentList[position].address_line
-                locality.text = studentList[position].locality
 
                 textViewOptions.setOnClickListener {
                     val popup = PopupMenu(context, textViewOptions)
@@ -62,58 +63,92 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                     return true
                                 }
                                 R.id.menuItemEdit -> {
-                                    val pos : StudentDetails = studentList[holder.absoluteAdapterPosition]
-                                    val name : String = pos.name.toString()
-                                    val phone : String = pos.phone_no.toString()
-                                    val roll : String = pos.roll_no.toString()
-                                    val loc : String = pos.locality.toString()
-                                    val addLine : String = pos.address_line.toString()
+                                    val pos: StudentDetails =
+                                        studentList[holder.absoluteAdapterPosition]
+                                    val name: String = pos.name.toString()
+                                    val phone: String = pos.phone_no.toString()
+                                    val roll: String = pos.roll_no.toString()
+                                    val addLine: String = pos.address_line.toString()
                                     val dialog = Dialog(context)
                                     dialog.setContentView(R.layout.update_records_dialog)
-                                    val width : Int = WindowManager.LayoutParams.MATCH_PARENT
-                                    val height : Int = WindowManager.LayoutParams.WRAP_CONTENT
-                                    dialog.window?.setLayout(width,height)
+                                    val width: Int = WindowManager.LayoutParams.MATCH_PARENT
+                                    val height: Int = WindowManager.LayoutParams.WRAP_CONTENT
+                                    dialog.window?.setLayout(width, height)
                                     dialog.show()
-                                    val nameET : EditText = dialog.etUpdateName
-                                    val phoneET :EditText = dialog.etUpdatePhoneNo
-                                    val rollET : EditText = dialog.etUpdateRollNo
-                                    val addressLine : EditText = dialog.etUpdateAddressLine
-                                    val locality : EditText = dialog.etUpdateLocality
-                                    val updateBtn : Button = dialog.updateBtn
+                                    val nameET: EditText = dialog.etUpdateName
+                                    val phoneET: EditText = dialog.etUpdatePhoneNo
+                                    val rollET: EditText = dialog.etUpdateRollNo
+                                    val addressLine: EditText = dialog.etUpdateAddressLine
+                                    val updateBtn: Button = dialog.updateBtn
 
                                     nameET.setText(name)
                                     phoneET.setText(phone)
                                     rollET.setText(roll)
                                     addressLine.setText(addLine)
-                                    locality.setText(loc)
-                                    updateBtn.setOnClickListener{
-                                        dialog.dismiss()
+                                    updateBtn.setOnClickListener {
                                         val updatedName = nameET.text.toString().trim()
                                         val updatedRoll = rollET.text.toString().trim()
                                         val updatedPhone = phoneET.text.toString().trim()
-                                        val updatedLoc = locality.text.toString().trim()
                                         val updatedAddressLine = addressLine.text.toString().trim()
-                                        val studentDetails1 = StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc)
-                                     //   studentViewModel.updateStudent(studentDetails1)
-//                                        pos.id?.let { it1 ->
-//                                            studentViewModel.update(
-//                                                it1,updatedName)
-//
-//                                        }
+                                        val studentDetails1 = StudentDetails(
+                                            updatedName,
+                                            updatedRoll,
+                                            updatedPhone,
+                                            updatedAddressLine,
+                                        )
+                                        if (updatedName.isEmpty() || updatedPhone.isEmpty() || updatedRoll.isEmpty() || updatedAddressLine.isEmpty() || updatedPhone.length != 10 || updatedRoll.length != 4) {
+                                            Toast.makeText(
+                                                context,
+                                                "Fill carefully Something Wrong",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            if (updatedName.isEmpty() || updatedName.length < 3) {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Fill name carefully",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                            if (updatedPhone.isEmpty() || updatedPhone.length != 10) {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Enter valid Phone no",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
 
-                                        pos.id?.let { it1 ->
-                                            studentViewModel.updateStudentDetails(
-                                                it1,studentDetails1)
+                                            }
+                                            if (updatedRoll.isEmpty() || updatedRoll.length != 4) {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Enter valid Roll no.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+
+                                            }
+                                            if (updatedAddressLine.isEmpty() || updatedAddressLine.length < 3) {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Enter valid Address",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        } else {
+
+                                            pos.id?.let { it1 ->
+                                                studentViewModel.updateStudentDetails(
+                                                    it1, studentDetails1
+                                                )
+                                            }
+
+                                            studentViewModel.getAllUserData(context)
+                                            dialog.dismiss()
+
                                         }
-                                     //   studentViewModel.updateStudentDetails( StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc))
-                                      //  studentViewModel.updateStudent1( StudentDetails(updatedName,updatedRoll,updatedPhone,updatedAddressLine,updatedLoc))
-                                        studentViewModel.getAllUserData(context)
-
                                     }
-                                    return true
                                 }
                             }
                             return false
+
                         }
                     })
                     popup.show()
@@ -123,16 +158,17 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                 Toast.makeText(context, "no Data found", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
-
-    fun setData(studentList: ArrayList<StudentDetails>) {
-        this.studentList = studentList
+    fun setData(studentList: List<StudentDetails>) {
+        this.studentList = studentList as ArrayList<StudentDetails>
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
         return studentList.size
     }
+
 
 }

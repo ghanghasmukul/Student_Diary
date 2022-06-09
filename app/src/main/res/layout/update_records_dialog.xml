@@ -42,16 +42,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
-        android:hint="@string/enter_phone_no_to_update"
+        android:hint="@string/enter_location_to_update"
         android:textSize="@dimen/_16sdp" />
 
-    <EditText
-        android:id="@+id/etUpdateLocality"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:hint="@string/enter_phone_no_to_update"
-        android:textSize="@dimen/_16sdp" />
+
 
     <Button
         android:id="@+id/updateBtn"

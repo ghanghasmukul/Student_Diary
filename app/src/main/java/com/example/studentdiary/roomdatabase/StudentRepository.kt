@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class StudentRepository {
@@ -32,6 +33,9 @@ class StudentRepository {
             }
         }
 
+        fun searchDatabase(searchQuery: String): LiveData<List<StudentDetails>>? {
+            return studentDatabase1?.studentDao()?.searchDatabase("%$searchQuery%")
+        }
 
         fun updateStudent(id : Int,studentDetails: StudentDetails) {
             CoroutineScope(IO).launch {
@@ -42,7 +46,7 @@ class StudentRepository {
                                     studentDatabase1!!.studentDao().updateStudentDetails(
                                         id,
                                         it1, it4, it2,
-                                        it, studentDetails.locality
+                                        it
                                     )
                                 }
                             }

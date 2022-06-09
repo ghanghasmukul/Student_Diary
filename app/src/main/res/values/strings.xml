@@ -19,4 +19,5 @@
     <string name="update_records">Update Records</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_text_to_search">Enter text to Search</string>
+    <string name="enter_location_to_update">Enter location to Update</string>
 </resources>
