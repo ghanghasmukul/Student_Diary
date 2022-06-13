@@ -6,13 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.view_records.ViewRecordsFragments">
 
+    <TextView
+        android:id="@+id/tvEmptyDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_db_text"
+        android:textSize="@dimen/_16ssp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/teal_700"
+         />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvViewRecords"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/rv_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

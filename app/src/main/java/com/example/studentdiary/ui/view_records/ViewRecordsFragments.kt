@@ -12,6 +12,7 @@ import com.example.studentdiary.adapters.ViewRecordsAdapter
 import com.example.studentdiary.databinding.FragmentViewRecordsBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
+import kotlinx.android.synthetic.main.fragment_view_records.*
 
 
 class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
@@ -20,7 +21,7 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
     private val studentViewModel: StudentViewModel by viewModels()
     private lateinit var adapter1: ViewRecordsAdapter
-
+    private var dataList: ArrayList<StudentDetails> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +35,9 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
         adapter1 = ViewRecordsAdapter(requireContext(), ArrayList<StudentDetails>())
         binding.rvViewRecords.adapter = adapter1
         getData()
-
         return root
     }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -49,14 +50,18 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     private fun getData() {
         studentViewModel.getAllUserData(requireContext()).observe(viewLifecycleOwner) {
-            adapter1.setData(it as ArrayList<StudentDetails>)
+            if (it.isEmpty()) {
+                rvViewRecords.visibility = View.GONE;
+                tvEmptyDb.visibility = View.VISIBLE;
+            } else {
+                rvViewRecords.visibility = View.VISIBLE;
+                tvEmptyDb.visibility = View.GONE;
+
+                adapter1.setData(it as ArrayList<StudentDetails>)
+            }
         }
     }
 
@@ -82,5 +87,10 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
