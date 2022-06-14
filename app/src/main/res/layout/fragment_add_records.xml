@@ -53,7 +53,6 @@
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/material_dynamic_primary20"
                 android:hint="+00"
                 android:textSize="@dimen/_16ssp" />
 
@@ -80,7 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
         android:text="Address - "
-        android:textColor="@color/material_dynamic_primary20"
         android:textSize="@dimen/_16ssp" />
 
     <TextView

@@ -19,7 +19,7 @@ class SplashScreen : AppCompatActivity() {
         mAnimation.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {}
             override fun onAnimationEnd(animation: Animator) {
-                val intent = Intent(this@SplashScreen, BottomNavigation::class.java)
+                val intent = Intent(this@SplashScreen, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -1,17 +1,22 @@
 package com.example.studentdiary.ui.view_records
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studentdiary.MainActivity
 import com.example.studentdiary.R
 import com.example.studentdiary.adapters.ViewRecordsAdapter
 import com.example.studentdiary.databinding.FragmentViewRecordsBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_view_records.*
 
 
@@ -21,8 +26,9 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
     private val studentViewModel: StudentViewModel by viewModels()
     private lateinit var adapter1: ViewRecordsAdapter
+    lateinit var mAuth: FirebaseAuth
     private var dataList: ArrayList<StudentDetails> = arrayListOf()
-
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +37,7 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
         _binding = FragmentViewRecordsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setHasOptionsMenu(true)
+        mAuth = FirebaseAuth.getInstance()
         binding.rvViewRecords.layoutManager = LinearLayoutManager(context)
         adapter1 = ViewRecordsAdapter(requireContext(), ArrayList<StudentDetails>())
         binding.rvViewRecords.adapter = adapter1
@@ -39,16 +46,23 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.searchbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
         val searchItem = menu.findItem(R.id.search)
+        val logOut = menu.findItem(R.id.sign_out)
         val searchView = searchItem?.actionView as? SearchView
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
-    }
 
+        logOut.setOnMenuItemClickListener {
+            mAuth.signOut()
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(),"Signing Out", Toast.LENGTH_SHORT).show()
+            return@setOnMenuItemClickListener true
+        }
+    }
 
 
     private fun getData() {

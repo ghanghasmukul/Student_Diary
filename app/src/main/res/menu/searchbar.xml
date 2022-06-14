@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_baseline_search_24"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/sign_out"
+        android:title="Sign Out"
+        android:icon="@drawable/signout"
+        app:showAsAction ="collapseActionView"/>
+
 </menu>
