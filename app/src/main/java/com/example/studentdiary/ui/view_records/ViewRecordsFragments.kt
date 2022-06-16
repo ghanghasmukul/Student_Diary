@@ -7,9 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studentdiary.MainActivity
+import com.example.studentdiary.LoginActivity
 import com.example.studentdiary.R
 import com.example.studentdiary.adapters.ViewRecordsAdapter
 import com.example.studentdiary.databinding.FragmentViewRecordsBinding
@@ -27,8 +26,6 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
     private val studentViewModel: StudentViewModel by viewModels()
     private lateinit var adapter1: ViewRecordsAdapter
     lateinit var mAuth: FirebaseAuth
-    private var dataList: ArrayList<StudentDetails> = arrayListOf()
-    lateinit var mGoogleSignInClient: GoogleSignInClient
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +42,6 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
         return root
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.searchbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -57,7 +53,7 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
 
         logOut.setOnMenuItemClickListener {
             mAuth.signOut()
-            val intent = Intent(requireActivity(), MainActivity::class.java)
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
             Toast.makeText(requireContext(),"Signing Out", Toast.LENGTH_SHORT).show()
             return@setOnMenuItemClickListener true
@@ -107,4 +103,5 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
         super.onDestroyView()
         _binding = null
     }
+
 }

@@ -34,8 +34,19 @@
             android:label="@string/title_activity_bottom_navigation"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true" />
+
+        <service android:name=".FCM"
+            android:exported="false"
+            android:permission="TODO">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_baseline_perm_identity_24"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCiSh4VnnI1jemtZTytDoj2X7Wl6evey30" />
