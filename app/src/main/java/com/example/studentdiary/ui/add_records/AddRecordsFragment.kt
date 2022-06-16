@@ -18,7 +18,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studentdiary.R
@@ -57,7 +56,7 @@ class AddRecordsFragment : Fragment() {
             LocationServices.getFusedLocationProviderClient(requireContext())
         onSubmitClick()
         getLocationUpdates()
-        apiResponse()
+        countryCode()
 
         return root
     }
@@ -68,7 +67,7 @@ class AddRecordsFragment : Fragment() {
         getLocationUpdates()
     }
 
-    private fun apiResponse() {
+    private fun countryCode() {
         val apiInterface = ApiInterface.create().getCode()
         apiInterface.enqueue(object : retrofit2.Callback<ModelCountryDetails> {
             override fun onResponse(
@@ -86,16 +85,12 @@ class AddRecordsFragment : Fragment() {
                         break
                     }
                 }
-
             }
-
             override fun onFailure(call: Call<ModelCountryDetails>, t: Throwable) {
                 Log.i("tag", "OnFailure")
             }
-
         })
     }
-
 
     private fun getLocationUpdates() {
 
@@ -242,6 +237,7 @@ class AddRecordsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -257,8 +253,9 @@ class AddRecordsFragment : Fragment() {
 
         }
     }
+
     private fun checkGpsState() {
-        val lm  = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val lm = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
         networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (!gpsEnabled && !networkEnabled) {
@@ -271,7 +268,7 @@ class AddRecordsFragment : Fragment() {
                 .setNegativeButton("Cancel", null)
                 .show()
         } else {
-           getLocationUpdates()
+            getLocationUpdates()
         }
     }
 
