@@ -1,9 +1,11 @@
 package com.example.studentdiary.roomdatabase
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
 import kotlinx.coroutines.flow.Flow
+import java.net.URI
 
 @Dao
 interface StudentDao {
@@ -21,6 +23,8 @@ interface StudentDao {
         phoneNo: String,
         addressLine: String,
     )
+
+
 
     @Delete
     suspend fun delete(studentDetails: StudentDetails)

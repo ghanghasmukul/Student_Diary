@@ -2,27 +2,28 @@ package com.example.studentdiary.adapters
 
 import android.app.Dialog
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.PopupMenu
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.ViewModel
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.view.*
+import android.widget.*
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdiary.R
 import com.example.studentdiary.databinding.RvItemBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
+import com.example.studentdiary.typeConverters.Converters
+import kotlinx.android.synthetic.main.fragment_view_records.view.*
 import kotlinx.android.synthetic.main.update_records_dialog.*
 
 
 class ViewRecordsAdapter(var context: Context, private var studentList: ArrayList<StudentDetails>) :
     RecyclerView.Adapter<ViewRecordsAdapter.ViewRecordViewHolder>() {
     var studentViewModel = StudentViewModel()
+    lateinit var byteArray: ByteArray
+    var checkedPosition = 0
 
     inner class ViewRecordViewHolder(val binding: RvItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -41,7 +42,26 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                 tvPhone.text = studentList[position].phone_no
                 tvRoll.text = studentList[position].roll_no
                 addressLine.text = studentList[position].address_line
+                val bitmapImage = Converters().toBitmap(studentList[position].profile_photo)
 
+                profilePic.setImageBitmap(bitmapImage)
+                profilePic.setOnClickListener {
+                    if (selectRV.isGone) {
+                        selectRV.visibility = View.VISIBLE
+                        notifyDataSetChanged()
+                    }
+                    else
+                        if (selectRV.isInvisible) {
+                        selectRV.visibility = View.VISIBLE
+                        notifyDataSetChanged()
+                    }
+                        else {
+                        selectRV.visibility = View.GONE
+                        notifyDataSetChanged()
+                    }
+                    Toast.makeText(context, "OnLongPressed", Toast.LENGTH_SHORT).show()
+                }
+                byteArray = studentList[position].profile_photo
                 textViewOptions.setOnClickListener {
                     val popup = PopupMenu(context, textViewOptions)
                     popup.inflate(R.menu.options_menu)
@@ -85,17 +105,21 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                     phoneET.setText(phone)
                                     rollET.setText(roll)
                                     addressLine.setText(addLine)
+                                    val byteArray = pos.profile_photo
                                     updateBtn.setOnClickListener {
                                         val updatedName = nameET.text.toString().trim()
                                         val updatedRoll = rollET.text.toString().trim()
                                         val updatedPhone = phoneET.text.toString().trim()
                                         val updatedAddressLine = addressLine.text.toString().trim()
-                                        val studentDetails1 = StudentDetails(
-                                            updatedName,
-                                            updatedRoll,
-                                            updatedPhone,
-                                            updatedAddressLine,
-                                        )
+                                        val studentDetails1 =
+                                            StudentDetails(
+                                                updatedName,
+                                                updatedRoll,
+                                                updatedPhone,
+                                                updatedAddressLine,
+                                                byteArray
+                                            )
+
                                         if (updatedName.isEmpty() || updatedPhone.isEmpty() || updatedRoll.isEmpty() || updatedAddressLine.isEmpty() || updatedPhone.length != 10 || updatedRoll.length != 4) {
                                             Toast.makeText(
                                                 context,
@@ -135,9 +159,11 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                                         } else {
 
                                             pos.id?.let { it1 ->
-                                                studentViewModel.updateStudentDetails(
-                                                    it1, studentDetails1
-                                                )
+                                                if (studentDetails1 != null) {
+                                                    studentViewModel.updateStudentDetails(
+                                                        it1, studentDetails1
+                                                    )
+                                                }
                                             }
 
                                             studentViewModel.getAllUserData(context)
@@ -160,6 +186,7 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
         }
 
     }
+
 
     fun setData(studentList: List<StudentDetails>) {
         this.studentList = studentList as ArrayList<StudentDetails>

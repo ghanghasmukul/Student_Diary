@@ -1,12 +1,12 @@
 package com.example.studentdiary.roomdatabase
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.example.studentdiary.typeConverters.Converters
 
 
-@Database(entities = [StudentDetails::class], version = 7, exportSchema = false)
+@Database(entities = [StudentDetails::class], version = 10, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class StudentDatabase : RoomDatabase() {
 
     abstract fun studentDao(): StudentDao
