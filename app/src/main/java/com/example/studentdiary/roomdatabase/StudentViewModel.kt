@@ -26,6 +26,10 @@ class StudentViewModel : ViewModel() {
 
     }
 
+    fun deleteSelected(list: ArrayList<Int>){
+        StudentRepository.deleteSelected(list)
+    }
+
    fun updateStudentDetails(id : Int, studentDetails: StudentDetails){
        StudentRepository.updateStudent(id,studentDetails)
    }

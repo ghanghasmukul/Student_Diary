@@ -20,7 +20,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun toBitmap(byteArray: ByteArray): Bitmap {
+    fun toBitmap(byteArray: ByteArray): Bitmap? {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 

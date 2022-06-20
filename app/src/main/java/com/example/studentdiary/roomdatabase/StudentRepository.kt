@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class StudentRepository {
@@ -30,6 +29,11 @@ class StudentRepository {
         fun delete(studentDetails: StudentDetails) {
             CoroutineScope(IO).launch {
                 studentDatabase1?.studentDao()?.delete(studentDetails)
+            }
+        }
+        fun deleteSelected(list: ArrayList<Int>){
+            CoroutineScope(IO).launch {
+                studentDatabase1?.studentDao()?.deleteSelected(list)
             }
         }
 

@@ -1,11 +1,8 @@
 package com.example.studentdiary.roomdatabase
 
-import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
-import kotlinx.coroutines.flow.Flow
-import java.net.URI
 
 @Dao
 interface StudentDao {
@@ -25,7 +22,8 @@ interface StudentDao {
     )
 
 
-
+    @Query("delete from StudentDetails where id in (:idList)")
+    fun deleteSelected(idList: ArrayList<Int>)
     @Delete
     suspend fun delete(studentDetails: StudentDetails)
 

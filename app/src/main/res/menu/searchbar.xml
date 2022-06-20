@@ -13,4 +13,9 @@
         android:icon="@drawable/signout"
         app:showAsAction ="collapseActionView"/>
 
+    <item
+        android:id="@+id/delete"
+        android:title="Delete Selected"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        app:showAsAction="always"/>
 </menu>

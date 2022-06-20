@@ -50,7 +50,7 @@ class AddRecordsFragment : Fragment() {
     private val IMAGE_REQUEST_CODE = 100
     var selectedImageUri: Uri? = null
     var imageURI: String? = null
-    lateinit var byteArray: ByteArray
+  var byteArray: ByteArray  =  byteArrayOf()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

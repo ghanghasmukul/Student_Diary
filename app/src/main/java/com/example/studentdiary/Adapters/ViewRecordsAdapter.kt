@@ -1,21 +1,17 @@
 package com.example.studentdiary.adapters
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.*
 import android.widget.*
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdiary.R
 import com.example.studentdiary.databinding.RvItemBinding
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
 import com.example.studentdiary.typeConverters.Converters
-import kotlinx.android.synthetic.main.fragment_view_records.view.*
 import kotlinx.android.synthetic.main.update_records_dialog.*
 
 
@@ -23,7 +19,9 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
     RecyclerView.Adapter<ViewRecordsAdapter.ViewRecordViewHolder>() {
     var studentViewModel = StudentViewModel()
     lateinit var byteArray: ByteArray
-    var checkedPosition = 0
+
+    private var isEnableSelection: Boolean = false
+    private var selectedItems: ArrayList<Int>? = arrayListOf()
 
     inner class ViewRecordViewHolder(val binding: RvItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -36,6 +34,7 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
 
 
     override fun onBindViewHolder(holder: ViewRecordViewHolder, position: Int) {
+        val item = studentList[position]
         holder.binding.apply {
             if (studentList.size != 0) {
                 tvName.text = studentList[position].name?.uppercase()
@@ -45,22 +44,47 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                 val bitmapImage = Converters().toBitmap(studentList[position].profile_photo)
 
                 profilePic.setImageBitmap(bitmapImage)
-                profilePic.setOnClickListener {
-                    if (selectRV.isGone) {
-                        selectRV.visibility = View.VISIBLE
-                        notifyDataSetChanged()
-                    }
-                    else
-                        if (selectRV.isInvisible) {
-                        selectRV.visibility = View.VISIBLE
-                        notifyDataSetChanged()
-                    }
-                        else {
+                profilePic.setOnLongClickListener {
+                    isEnableSelection = true
+                    if (selectedItems?.contains(item.id) == true) {
                         selectRV.visibility = View.GONE
-                        notifyDataSetChanged()
+                        item.id?.toInt()?.let { it1 -> selectedItems?.removeAt(it1) }
+                        Log.i("TAg", "remove at -$position list size - ${selectedItems!!.size}")
+
+                    } else {
+                        selectRV.visibility = View.VISIBLE
+                        item.id?.let { it1 -> selectedItems?.add(it1) }
+                        Log.i("TAg", "add at -$position list size - ${selectedItems?.size}")
+
                     }
-                    Toast.makeText(context, "OnLongPressed", Toast.LENGTH_SHORT).show()
+                    if (selectedItems?.size == 0) {
+                        isEnableSelection = false
+                    }
+
+                    true
                 }
+
+                profilePic.setOnClickListener {
+                    if (isEnableSelection) {
+                        if (selectedItems?.contains(item.id) == true) {
+                            selectRV.visibility = View.GONE
+                            selectedItems!!.remove(item.id)
+                            Log.i("TAg", "remove at -$position list size - ${selectedItems!!.size}")
+                        } else {
+                            selectRV.visibility = View.VISIBLE
+                            item.id?.let { it1 -> selectedItems?.add(it1) }
+                            Log.i("TAg", "add at -$position list size - ${selectedItems?.size}")
+
+
+                        }
+                        if (selectedItems?.size == 0) {
+                            isEnableSelection = false
+                        }
+                    }
+                }
+
+
+
                 byteArray = studentList[position].profile_photo
                 textViewOptions.setOnClickListener {
                     val popup = PopupMenu(context, textViewOptions)
@@ -195,6 +219,28 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
 
     override fun getItemCount(): Int {
         return studentList.size
+    }
+
+    fun deleteSelectedItems() {
+        if (selectedItems?.size == 0) {
+            Toast.makeText(context, "No items to delete", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Delete", Toast.LENGTH_SHORT).show()
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setTitle("Delete")
+            alertDialog.setMessage("Delete Selected Items")
+            alertDialog.setPositiveButton("Delete") { _, _ ->
+                selectedItems?.let { studentViewModel.deleteSelected(it) }
+                notifyDataSetChanged()
+
+            }
+            alertDialog.setNegativeButton("cancel") { _, _ ->
+
+            }
+            alertDialog.show()
+
+        }
+
     }
 
 

@@ -1,9 +1,11 @@
 package com.example.studentdiary.ui.view_records
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.AlertDialogLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -45,9 +47,12 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.searchbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+
         val searchItem = menu.findItem(R.id.search)
         val logOut = menu.findItem(R.id.sign_out)
         val searchView = searchItem?.actionView as? SearchView
+        val delete = menu.findItem(R.id.delete)
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
 
@@ -55,8 +60,14 @@ class ViewRecordsFragments : Fragment(), SearchView.OnQueryTextListener {
             mAuth.signOut()
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
-            Toast.makeText(requireContext(),"Signing Out", Toast.LENGTH_SHORT).show()
-            return@setOnMenuItemClickListener true
+            Toast.makeText(requireContext(), "Signing Out", Toast.LENGTH_SHORT).show()
+            true
+        }
+
+        delete.setOnMenuItemClickListener {
+       adapter1.deleteSelectedItems()
+
+            true
         }
     }
 
