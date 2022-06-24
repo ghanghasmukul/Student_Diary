@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -13,7 +14,6 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
-import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,9 +31,12 @@ import com.example.studentdiary.retrofitApi.CountryData
 import com.example.studentdiary.retrofitApi.ModelCountryDetails
 import com.example.studentdiary.roomdatabase.StudentDetails
 import com.example.studentdiary.roomdatabase.StudentViewModel
+import com.example.studentdiary.typeConverters.Converters
 import com.google.android.gms.location.*
 import retrofit2.Call
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
 import java.util.*
 
 
@@ -50,6 +53,7 @@ class AddRecordsFragment : Fragment() {
     private val IMAGE_REQUEST_CODE = 100
     var selectedImageUri: Uri? = null
     var imageURI: String? = null
+    private lateinit var converter : Converters
   var byteArray: ByteArray  =  byteArrayOf()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,15 +89,24 @@ class AddRecordsFragment : Fragment() {
             binding?.ivProfilePic?.setImageURI(data?.data)
             selectedImageUri = data?.data
             imageURI = selectedImageUri.toString()
-            var inputStream = selectedImageUri?.let {
+
+            val inputStream = selectedImageUri?.let {
                 requireContext().contentResolver.openInputStream(
                     it
                 )
             }
             byteArray = inputStream?.readBytes()!!
-
+//            val bitmap = converter.toBitmap(byteArray)
+//            var photo =bitmap as Bitmap
+//            photo = Bitmap.createScaledBitmap(photo, 100, 100, false)
+//            val bytes = ByteArrayOutputStream()
+//            photo.compress(CompressFormat.JPEG, 40, bytes)
+//
+//            val fo = FileOutputStream(f)
+//            fo.write(bytes.toByteArray())
         }
     }
+
 
 
     override fun onStart() {

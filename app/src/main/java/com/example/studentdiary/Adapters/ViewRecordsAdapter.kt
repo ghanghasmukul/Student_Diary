@@ -49,12 +49,12 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
                     if (selectedItems?.contains(item.id) == true) {
                         selectRV.visibility = View.GONE
                         item.id?.toInt()?.let { it1 -> selectedItems?.removeAt(it1) }
-                        Log.i("TAg", "remove at -$position list size - ${selectedItems!!.size}")
+                        Log.i("Tag", "remove at -$position list size - ${selectedItems!!.size}")
 
                     } else {
                         selectRV.visibility = View.VISIBLE
                         item.id?.let { it1 -> selectedItems?.add(it1) }
-                        Log.i("TAg", "add at -$position list size - ${selectedItems?.size}")
+                        Log.i("Tag", "add at -$position list size - ${selectedItems?.size}")
 
                     }
                     if (selectedItems?.size == 0) {

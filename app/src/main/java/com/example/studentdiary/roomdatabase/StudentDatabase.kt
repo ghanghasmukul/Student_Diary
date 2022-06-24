@@ -5,7 +5,7 @@ import androidx.room.*
 import com.example.studentdiary.typeConverters.Converters
 
 
-@Database(entities = [StudentDetails::class], version = 14, exportSchema = false)
+@Database(entities = [StudentDetails::class], version = 16, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class StudentDatabase : RoomDatabase() {
 

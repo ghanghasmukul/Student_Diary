@@ -9,7 +9,7 @@
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/activity_login.xml" value="0.67" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/activity_main.xml" value="0.1921875" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
-        <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/fragment_add_records.xml" value="0.1" />
+        <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/fragment_add_records.xml" value="0.22" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/fragment_play_videos.xml" value="0.1921875" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/fragment_update_records.xml" value="0.1921875" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/fragment_view_records.xml" value="0.2" />
@@ -17,6 +17,7 @@
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/phone_no_login_dialog.xml" value="0.33" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/rv_item.xml" value="0.25" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/sign_up_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/time_spinner.xml" value="0.14407866609662248" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/layout/update_records_dialog.xml" value="0.1921875" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1921875" />
         <entry key="..\:/Users/mukul/AndroidStudioProjects/StudentDiary/app/src/main/res/menu/options_menu.xml" value="0.19114583333333332" />

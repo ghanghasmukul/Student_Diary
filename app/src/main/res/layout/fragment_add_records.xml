@@ -8,6 +8,20 @@
     android:orientation="vertical"
     tools:context=".ui.add_records.AddRecordsFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
     <de.hdodenhof.circleimageview.CircleImageView
 
         android:layout_marginTop="@dimen/_10sdp"
@@ -30,7 +44,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,7 +59,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="number"
             android:maxLength="4" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -110,5 +124,6 @@
         android:layout_margin="@dimen/_8sdp"
         android:text="@string/submit"
         android:textSize="@dimen/_18ssp" />
-
+</LinearLayout>
+    </ScrollView>
 </LinearLayout>
