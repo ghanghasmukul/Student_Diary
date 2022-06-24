@@ -222,7 +222,7 @@ class ViewRecordsAdapter(var context: Context, private var studentList: ArrayLis
     }
 
     fun deleteSelectedItems() {
-        if (selectedItems?.size == 0) {
+        if (selectedItems?.isEmpty() == true) {
             Toast.makeText(context, "No items to delete", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(context, "Delete", Toast.LENGTH_SHORT).show()

@@ -22,4 +22,5 @@
     <string name="enter_location_to_update">Enter location to Update</string>
     <string name="no_db_text">Database is empty!!</string>
     <string name="web_client_id">401737742013-r7tr7f3bvu09di85g9s1ncvvlc9o37pk.apps.googleusercontent.com</string>
+    <string name="address">Address</string>
 </resources>

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
@@ -23,6 +22,7 @@ import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import kotlinx.android.synthetic.main.phone_no_login_dialog.*
 import kotlinx.android.synthetic.main.sign_up_dialog.*
 import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity() {
@@ -169,7 +169,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun createRequest() {
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.web_client_id))
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -193,18 +193,39 @@ class LoginActivity : AppCompatActivity() {
     private fun logInUsingEmails() {
         val emailAdd = emailET.text.toString()
         val password = passwordET.text.toString()
-        mAuth.signInWithEmailAndPassword(emailAdd, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val intent = Intent(this, BottomNavigation::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }.addOnFailureListener { exception ->
-            Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
+        val EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+        )
+
+        fun isValidString(str: String): Boolean {
+            return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
         }
+        if (emailAdd.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "fill details", Toast.LENGTH_SHORT).show()
+        } else if (isValidString(emailAdd)) {
+
+            mAuth.signInWithEmailAndPassword(emailAdd, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this, BottomNavigation::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }.addOnFailureListener { exception ->
+                Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG)
+                    .show()
+            }
+        } else {
+            Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show()
+
+        }
+
     }
-
-
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, rcSignIn)
@@ -259,3 +280,4 @@ class LoginActivity : AppCompatActivity() {
 
 
 }
+
